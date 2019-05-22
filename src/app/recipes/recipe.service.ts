@@ -19,12 +19,12 @@ export class RecipeService {
 
   private recipes: Recipe[] = [
     new Recipe('A test recipe',
-      'this is a simpre recipe',
+      'this is a simple recipe',
       'https://www.cscassets.com/recipes/wide_cknew/wide_32.jpg',
       [new Ingredient('Meat', 1), new Ingredient('French Fries', 100)]
     ),
     new Recipe('A test recipe2',
-      'this is a simpre recipe2',
+      'this is a simple recipe2',
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM-BkJu9qJPvJZD_L63Je26vHFQuUx9f88-mWZC2Fhv9jiQUXU',
       [new Ingredient('Buns', 2), new Ingredient('Soft Meat', 3)])
   ];
