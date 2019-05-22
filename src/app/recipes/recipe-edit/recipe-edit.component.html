@@ -1,0 +1,51 @@
+recipe-edit start
+<hr>
+Modify Recipe
+<div class="row">
+  <div class="col-xs-12">
+    <img [src]="recipe.imagePath" alt="{{recipe.name}}" class="img-responsive">
+  </div>
+</div>
+<hr>
+<div class="form-group">
+  <label for="name">Recipe Name</label>
+  <input
+    type="text"
+    id="name"
+    class="form-control"
+    [(ngModel)]="recipe.name">
+</div>
+
+<div class="form-group">
+  <label for="name">Description</label>
+  <input
+    type="text"
+    id="description"
+    class="form-control"
+    [(ngModel)]="recipe.description">
+</div>
+<div class="form-group">
+  <label for="name">Image path</label>
+  <input
+    type="text"
+    id="imagePath"
+    class="form-control"
+    [(ngModel)]="recipe.imagePath">
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="list-group">
+      <li class="list-group-item"
+          *ngFor="let i of recipe.ingredients">
+        {{i.name}} - {{i.amount}}
+      </li>
+    </ul>
+  </div>
+</div>
+<button
+  class="btn btn-primary"
+  (click)="onSaveRecipe()">Save Recipe
+</button>
+<hr>
+recipe-edit end
