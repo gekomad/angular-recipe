@@ -6,23 +6,42 @@ import {Router} from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-
+  apiKey = '';
+  authDomain = '';
+  firebaseApp: firebase.app.App = undefined;
   token = '';
 
-  signup(email: string, password: string) {
+  signup(email: string, password: string, apiKey: string, authDomain: string) {
+    this.apiKey = apiKey;
+    this.authDomain = authDomain;
+    if (this.firebaseApp === undefined) {
+      this.firebaseInit();
+    }
     firebase.auth().createUserWithEmailAndPassword(email, password)
-      .catch(error => console.log(error));
+      .catch(error => {
+        console.log(error);
+        alert('error on signup');
+      });
   }
 
-  signin(email: string, password: string) {
+  signin(email: string, password: string, apiKey: string, authDomain: string) {
+    this.apiKey = apiKey;
+    this.authDomain = authDomain;
+    if (this.firebaseApp === undefined) {
+      this.firebaseInit();
+    }
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(response => {
+      .then(_ => {
         this.router.navigate(['/']);
         firebase.auth().currentUser.getIdToken().then(
           (token: string) => this.token = token
         );
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+          console.log(error);
+          alert('error on signin');
+        }
+      );
   }
 
   constructor(private router: Router) {
@@ -42,5 +61,23 @@ export class AuthService {
   logOut() {
     firebase.auth().signOut();
     this.token = '';
+  }
+
+  private initializeApp() {
+    return this.firebaseApp = firebase.initializeApp({
+      apiKey: this.apiKey,
+      authDomain: this.authDomain
+    });
+  }
+
+  private firebaseInit() {
+    if (this.firebaseApp !== undefined) {
+      this.firebaseApp.delete().then(_ => {
+          this.initializeApp();
+        }
+      );
+    } else {
+      this.firebaseApp = this.initializeApp();
+    }
   }
 }
