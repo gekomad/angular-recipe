@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Recipe} from '../recipe.model';
 import {RecipeService} from '../recipe.service';
+import {AppState} from '../../shopping-list/store/shopping-list-reducers';
 
 @Component({
   selector: 'app-recipe-edit',

@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
 import {RecipesComponent} from './recipes/recipes.component';
@@ -11,7 +10,6 @@ import {ShoppingListComponent} from './shopping-list/shopping-list.component';
 import {ShoppingEditComponent} from './shopping-list/shopping-edit/shopping-edit.component';
 import {FormsModule} from '@angular/forms';
 import {DropdownDirective} from './shared/dropdown.directive';
-import {ShoppingListService} from './shopping-list/shopping-list.service';
 import {RecipeService} from './recipes/recipe.service';
 import {RouterModule, Routes} from '@angular/router';
 import {RecipeStartComponent} from './recipes/recipe-start/recipe-start.component';
@@ -21,6 +19,8 @@ import {SigninComponent} from './auth/signin/signin.component';
 import {SignupComponent} from './auth/signup/signup.component';
 import {AuthGuard} from './auth-guard.service';
 import {AuthService} from './auth.service';
+import {StoreModule} from '@ngrx/store';
+import {shoppingListReducer} from './shopping-list/store/shopping-list-reducers';
 
 const appRoutes: Routes = [
   {
@@ -58,9 +58,10 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule,
     HttpModule,
+    StoreModule.forRoot({shoppingListStore: shoppingListReducer}),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ShoppingListService, RecipeService, AuthGuard, AuthService],
+  providers: [RecipeService, AuthGuard, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
